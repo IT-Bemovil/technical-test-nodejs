@@ -11,8 +11,8 @@ export const createUser = [
 
   async (req, res) => {
     const errors = validationResult(req)
-    if(errors.isEmpty()){
-      return res.status(400);
+    if (errors.isEmpty()) {
+      return res.status(400).json({ isOk: false, errors: errors.array() });
     }
   }
 ]
