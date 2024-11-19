@@ -1,6 +1,6 @@
 import {Sequelize,DataTypes} from 'sequelize'
 
-export const sequelizeConnection = new Sequelize('dev_db','user_dev','pass_dev',{
+export const sequelizeConnection = new Sequelize(process.env.DB_NAME,process.env.DB_USER,process.env.DB_PASSWORD,{
   dialect: 'sqlite',
   storage: 'dev.db'
 })
