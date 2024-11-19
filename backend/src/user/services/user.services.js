@@ -62,4 +62,21 @@ userService.login = async (req, res) => {
   }
 };
 
+// ** obtener usuario por token
+userService.getUserByToken = async (req, res) => {
+  try {
+    const user = req.userId;
+
+    const userFound = await User.findByPk(user);
+
+    if (!userFound) {
+      return response(res, 404, false, null, "usuario no encontrado");
+    }
+
+    return response(res, 200, true, userFound, "usuario encontrado");
+  } catch (error) {
+    return response(res, 500, false, null, error.message);
+  }
+};
+
 export default userService;

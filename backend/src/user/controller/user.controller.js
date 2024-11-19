@@ -13,4 +13,10 @@ userController.login = async (req, res) => {
   return userService.login(req, res);
 };
 
+// ** obtener usuario por token
+userController.getUserByToken = async (req, res) => {
+    return userService.getUserByToken(req, res);
+  };
+  
+
 export default userController;

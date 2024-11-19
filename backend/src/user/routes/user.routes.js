@@ -7,6 +7,7 @@ import {
   createUserSchema,
   loginUserSchema,
 } from "../validation/user.schema.js";
+import { veriFyToken } from "../../middlewares/auth.js";
 
 const route = Router();
 
@@ -18,5 +19,6 @@ route.post(
   userController.register
 );
 
+route.get("/me", veriFyToken, userController.getUserByToken);
 
 export default route;
