@@ -5,3 +5,11 @@ export const createTaskSchema = Yup.object().shape({
   // ** segun las instrucciones la descripcion no es obligatoria
   description: Yup.string(),
 });
+
+
+
+export const updateTaskSchema = Yup.object().shape({
+  title: Yup.string().required(),
+  description: Yup.string(),
+  status: Yup.string(),
+});
