@@ -1,6 +1,5 @@
 import express from 'express';
 import initDataBase from './configDB/connection.js';
-import User from '../src/users/models/user.js'
 
 const app = express()
 app.use(express.json())
