@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { db } from "../db/models";
+import { where } from "sequelize";
 
 const crtTask: any = {};
 const saltRounds = 10;
@@ -41,6 +42,27 @@ crtTask.getById = async (req: Request, res: Response) => {
     const { id } = req.params;
     const task = await db.todo.findByPk(id);
     res.status(200).json(task);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: "error",
+      message: "Server error",
+    });
+  }
+};
+
+crtTask.getByUserId = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const user = await db.user.findOne({
+      where: { id },
+      attributes: ["id", "email"],
+      include: {
+        model: db.todo,
+        as: "todos",
+      },
+    });
+    res.status(200).json(user);
   } catch (error) {
     console.log(error);
     res.status(500).json({

@@ -11,6 +11,11 @@ const router = Router();
 const validator = createValidator();
 
 router.get("/", todoController.getAll);
+router.get(
+  "/user/:id",
+  validator.params(idTaskSchema),
+  todoController.getByUserId
+);
 router.get("/:id", validator.params(idTaskSchema), todoController.getById);
 router.post("/", validator.body(createTaskSchema), todoController.register);
 router.put(
