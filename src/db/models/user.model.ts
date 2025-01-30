@@ -24,7 +24,7 @@ module.exports = (sequelize: Sequelize) => {
     }
   );
 
-  User.sync({ alter: true, logging: false });
+  User.sync({ logging: false });
 
   return User;
 };

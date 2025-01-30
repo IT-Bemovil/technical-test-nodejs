@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { db } from "../db/models";
 import { where } from "sequelize";
+import logger from "../helpers/logger";
 
 const crtTask: any = {};
 const saltRounds = 10;
@@ -16,7 +17,7 @@ crtTask.register = async (req: Request, res: Response) => {
 
     res.status(201).json(newTask);
   } catch (error) {
-    console.log(error);
+    logger.error(error);
     res.status(500).json({
       status: "error",
       message: "Server error",
@@ -29,7 +30,7 @@ crtTask.getAll = async (req: Request, res: Response) => {
     const tasks = await db.todo.findAll();
     res.status(200).json(tasks);
   } catch (error) {
-    console.log(error);
+    logger.error(error);
     res.status(500).json({
       status: "error",
       message: "Server error",
@@ -43,7 +44,7 @@ crtTask.getById = async (req: Request, res: Response) => {
     const task = await db.todo.findByPk(id);
     res.status(200).json(task);
   } catch (error) {
-    console.log(error);
+    logger.error(error);
     res.status(500).json({
       status: "error",
       message: "Server error",
@@ -64,7 +65,7 @@ crtTask.getByUserId = async (req: Request, res: Response) => {
     });
     res.status(200).json(user);
   } catch (error) {
-    console.log(error);
+    logger.error(error);
     res.status(500).json({
       status: "error",
       message: "Server error",

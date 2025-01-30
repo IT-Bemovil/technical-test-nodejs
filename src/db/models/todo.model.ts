@@ -36,7 +36,7 @@ module.exports = (sequelize: Sequelize) => {
     }
   );
 
-  Todo.sync({ alter: true, logging: false });
+  Todo.sync({ logging: false });
 
   return Todo;
 };

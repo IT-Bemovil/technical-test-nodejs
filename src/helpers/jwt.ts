@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import logger from "../helpers/logger";
 
 const generateJWT = (uid = "") => {
   try {
@@ -9,7 +10,7 @@ const generateJWT = (uid = "") => {
 
     return token;
   } catch (error) {
-    console.log(error);
+    logger.error(error);
     return null;
   }
 };

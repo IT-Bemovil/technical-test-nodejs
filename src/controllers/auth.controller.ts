@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { db } from "../db/models";
 import { generateJWT } from "../helpers/jwt";
+import logger from "../helpers/logger";
 
 const crtAuth: any = {};
 const saltRounds = 10;
@@ -34,7 +35,7 @@ crtAuth.register = async (req: Request, res: Response) => {
       message: "User registered successfully",
     });
   } catch (error) {
-    console.log(error);
+    logger.error(error);
     res.status(500).json({
       status: "error",
       message: "Server error",
@@ -64,7 +65,7 @@ crtAuth.login = async (req: Request, res: Response) => {
       token,
     });
   } catch (error) {
-    console.log(error);
+    logger.error(error);
     res.status(500).json({
       status: "error",
       message: "Server error",

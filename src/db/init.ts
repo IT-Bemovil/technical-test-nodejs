@@ -1,4 +1,5 @@
 import { Sequelize } from "sequelize";
+import logger from "../helpers/logger";
 
 const dbUrl = process.env.DATABASE!;
 
@@ -6,10 +7,10 @@ const dbInstance = new Sequelize(dbUrl);
 
 async function init() {
   try {
-    await dbInstance.sync({ alter: true, force: true });
-    console.log("Db initialized");
+    await dbInstance.sync({ logging: false });
+    logger.info("Db initialized");
   } catch (error) {
-    console.log(error);
+    logger.error(error);
   }
 }
 
