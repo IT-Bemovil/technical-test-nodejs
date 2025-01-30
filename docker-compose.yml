@@ -13,5 +13,24 @@ services:
       - "3306"
     volumes:
       - my-db:/var/lib/mysql
+
+  todo_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    environment:
+      PORT: 3000
+      SECRET: "bemovil"
+      NODE_ENV: "development"
+      DB_HOST: localhost
+      DB_USER: root
+      DB_PASSWORD: password
+      DB_NAME: todos
+    depends_on:
+      - db
+
 volumes:
   my-db:
