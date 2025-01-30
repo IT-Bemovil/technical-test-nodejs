@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { db } from "../db/models";
-import { generateJWT } from "../utils/jwt";
+import { generateJWT } from "../helpers/jwt";
 
 const crtAuth: any = {};
 const saltRounds = 10;

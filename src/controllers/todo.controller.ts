@@ -6,16 +6,11 @@ const saltRounds = 10;
 
 crtTask.register = async (req: Request, res: Response) => {
   try {
-    const { title, description } = req.body;
-    if (!title) {
-      res.status(400).json({
-        status: "error",
-        message: "All parameters are required",
-      });
-    }
+    const { title, description, userId } = req.body;
     const newTask = await db.todo.create({
       title,
       description,
+      userId,
     });
 
     res.status(201).json(newTask);
@@ -75,7 +70,7 @@ crtTask.delete = async (req: Request, res: Response) => {
     const { id } = req.params;
     const task = await db.todo.findByPk(id);
     if (!task) return res.status(400).json({ message: `Task not found` });
-    await task.delete();
+    await task.drop();
     res.status(200).json({
       message: "Task deleted successfully",
     });

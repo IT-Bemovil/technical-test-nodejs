@@ -5,6 +5,7 @@ import todoRoute from "./routes/todo.route";
 import "./db/init";
 import bodyParser from "body-parser";
 import cors from "cors";
+import { validateToken } from "./middlewares/validate-token";
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -12,6 +13,7 @@ const port = process.env.PORT || 5000;
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 // CORS
 app.use(
   cors({
@@ -24,7 +26,7 @@ app.use(
 );
 
 app.use("/auth", authRoute);
-app.use("/tasks", todoRoute);
+app.use("/tasks", validateToken, todoRoute);
 
 app.listen(port, () => {
   console.log(`Server listen on port: ${port}`);
