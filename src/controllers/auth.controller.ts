@@ -3,25 +3,23 @@ import bcrypt from "bcrypt";
 import { db } from "../db/models";
 import { generateJWT } from "../helpers/jwt";
 import logger from "../helpers/logger";
+import { ValidatedRequest } from "express-joi-validation";
+import { AuthRequestSchema } from "../middlewares/validations/auth.validation";
 
 const crtAuth: any = {};
 const saltRounds = 10;
 
-crtAuth.register = async (req: Request, res: Response) => {
+crtAuth.register = async (
+  req: ValidatedRequest<AuthRequestSchema>,
+  res: Response
+) => {
   try {
     const { email, password } = req.body;
-    if (!email || !password || password.length < 6) {
-      res.status(400).json({
-        status: "error",
-        message:
-          "Todos los campos son requeridos y la contrasena debe ser mayor a 6 caracteres",
-      });
-    }
     const salt = bcrypt.genSaltSync(saltRounds);
     const hash = bcrypt.hashSync(password, salt);
     const user = await db.user.findOne({ where: { email: email } });
     if (user) {
-      res.status(400).json({
+      return res.status(400).json({
         status: "error",
         message: "Validar campos",
       });
@@ -43,15 +41,15 @@ crtAuth.register = async (req: Request, res: Response) => {
   }
 };
 
-crtAuth.login = async (req: Request, res: Response) => {
+crtAuth.login = async (
+  req: ValidatedRequest<AuthRequestSchema>,
+  res: Response
+) => {
   try {
     const { email, password } = req.body;
-    if (!email || !password) {
-      res.status(400).json({ message: "User or password invalid " });
-    }
     const user = await db.user.findOne({ where: { email: email } });
     if (!user) {
-      res.status(400).json({
+      return res.status(400).json({
         status: "error",
         message: "User or password invalid ",
       });
