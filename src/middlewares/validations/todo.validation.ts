@@ -20,9 +20,11 @@ const updateTaskSchema = Joi.object({
 
 interface TaskRequestSchema extends ValidatedRequestSchema {
   [ContainerTypes.Query]: {
+    id: number;
     title: string;
     description: string;
     status: string;
+    userId: number;
   };
 }
 

@@ -1,12 +1,15 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { db } from "../db/models";
-import { where } from "sequelize";
 import logger from "../helpers/logger";
+import { ValidatedRequest } from "express-joi-validation";
+import { TaskRequestSchema } from "../middlewares/validations/todo.validation";
 
 const crtTask: any = {};
-const saltRounds = 10;
 
-crtTask.register = async (req: Request, res: Response) => {
+crtTask.register = async (
+  req: ValidatedRequest<TaskRequestSchema>,
+  res: Response
+) => {
   try {
     const { title, description, userId } = req.body;
     const newTask = await db.todo.create({
@@ -25,7 +28,10 @@ crtTask.register = async (req: Request, res: Response) => {
   }
 };
 
-crtTask.getAll = async (req: Request, res: Response) => {
+crtTask.getAll = async (
+  req: ValidatedRequest<TaskRequestSchema>,
+  res: Response
+) => {
   try {
     const tasks = await db.todo.findAll();
     res.status(200).json(tasks);
@@ -38,7 +44,10 @@ crtTask.getAll = async (req: Request, res: Response) => {
   }
 };
 
-crtTask.getById = async (req: Request, res: Response) => {
+crtTask.getById = async (
+  req: ValidatedRequest<TaskRequestSchema>,
+  res: Response
+) => {
   try {
     const { id } = req.params;
     const task = await db.todo.findByPk(id);
@@ -52,7 +61,10 @@ crtTask.getById = async (req: Request, res: Response) => {
   }
 };
 
-crtTask.getByUserId = async (req: Request, res: Response) => {
+crtTask.getByUserId = async (
+  req: ValidatedRequest<TaskRequestSchema>,
+  res: Response
+) => {
   try {
     const { id } = req.params;
     const user = await db.user.findOne({
@@ -73,7 +85,10 @@ crtTask.getByUserId = async (req: Request, res: Response) => {
   }
 };
 
-crtTask.update = async (req: Request, res: Response) => {
+crtTask.update = async (
+  req: ValidatedRequest<TaskRequestSchema>,
+  res: Response
+) => {
   try {
     const { id } = req.params;
     let updateTask = req.body;
@@ -88,7 +103,10 @@ crtTask.update = async (req: Request, res: Response) => {
   }
 };
 
-crtTask.delete = async (req: Request, res: Response) => {
+crtTask.delete = async (
+  req: ValidatedRequest<TaskRequestSchema>,
+  res: Response
+) => {
   try {
     const { id } = req.params;
     const task = await db.todo.findByPk(id);
