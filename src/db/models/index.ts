@@ -1,12 +1,12 @@
 import fs from "fs";
 import path from "path";
 import { Sequelize } from "sequelize";
+import { dbConfig } from "../../config/db.config";
 
-const dbUrl = process.env.DATABASE!;
 const basename = path.basename(__filename);
 const db: any = {};
 
-const sequelize = new Sequelize(dbUrl);
+const sequelize = new Sequelize(dbConfig);
 
 fs.readdirSync(__dirname)
   .filter((file) => {

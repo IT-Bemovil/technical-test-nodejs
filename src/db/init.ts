@@ -1,9 +1,8 @@
 import { Sequelize } from "sequelize";
 import logger from "../helpers/logger";
+import { dbConfig } from "../config/db.config";
 
-const dbUrl = process.env.DATABASE!;
-
-const dbInstance = new Sequelize(dbUrl);
+const dbInstance = new Sequelize(dbConfig);
 
 async function init() {
   try {

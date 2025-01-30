@@ -47,13 +47,6 @@ crtAuth.register = async (
     const { email, password } = req.body;
     const salt = bcrypt.genSaltSync(saltRounds);
     const hash = bcrypt.hashSync(password, salt);
-    const user = await db.user.findOne({ where: { email: email } });
-    if (user) {
-      return res.status(400).json({
-        status: "error",
-        message: "Validar campos",
-      });
-    }
     await db.user.create({
       email,
       password: hash,
@@ -62,8 +55,14 @@ crtAuth.register = async (
     res.status(201).json({
       message: "User registered successfully",
     });
-  } catch (error) {
+  } catch (error: any) {
     logger.error(error);
+    if (error.parent.code === "23505") {
+      return res.status(400).json({
+        status: "error",
+        message: "Email already exists",
+      });
+    }
     res.status(500).json({
       status: "error",
       message: "Server error",
