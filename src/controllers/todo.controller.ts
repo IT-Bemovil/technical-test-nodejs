@@ -6,6 +6,48 @@ import { TaskRequestSchema } from "../middlewares/validations/todo.validation";
 
 const crtTask: any = {};
 
+/**
+ * @swagger
+ * /tasks:
+ *   post:
+ *     tags: [Tasks]
+ *     summary: Create a new task
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *            type: object
+ *            properties:
+ *              title:
+ *                type: string
+ *              description:
+ *                type: string
+ *     responses:
+ *       201:
+ *         description: The task was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *              type: object
+ *              properties:
+ *               id:
+ *                  type: number
+ *               title:
+ *                  type: string
+ *               description:
+ *                  type: string
+ *               status:
+ *                  type: string
+ *               userId:
+ *                  type: integer
+ *               createdAt:
+ *                  type: string
+ *               updatedAt:
+ *                  type: string
+ *       500:
+ *         description: Some server error
+ */
 crtTask.register = async (
   req: ValidatedRequest<TaskRequestSchema>,
   res: Response
@@ -28,6 +70,38 @@ crtTask.register = async (
   }
 };
 
+/**
+ * @swagger
+ * /tasks:
+ *   get:
+ *     summary: Returns the list of all the tasks
+ *     tags: [Tasks]
+ *     responses:
+ *       200:
+ *         description: The list of the tasks
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               tasks:
+ *                 properties:
+ *                  id:
+ *                     type: number
+ *                  title:
+ *                     type: string
+ *                  description:
+ *                     type: string
+ *                  status:
+ *                     type: string
+ *                  userId:
+ *                     type: integer
+ *                  createdAt:
+ *                     type: Date
+ *                  updatedAt:
+ *                     type: Date
+ *       500:
+ *         description: Some server error
+ */
 crtTask.getAll = async (
   req: ValidatedRequest<TaskRequestSchema>,
   res: Response
@@ -44,6 +118,44 @@ crtTask.getAll = async (
   }
 };
 
+/**
+ * @swagger
+ * /tasks/{id}:
+ *   get:
+ *     summary: Get the task by id
+ *     tags: [Tasks]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The task id
+ *     responses:
+ *       200:
+ *         description: The task description by id
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                  id:
+ *                     type: number
+ *                  title:
+ *                     type: string
+ *                  description:
+ *                     type: string
+ *                  status:
+ *                     type: string
+ *                  userId:
+ *                     type: integer
+ *                  createdAt:
+ *                     type: Date
+ *                  updatedAt:
+ *                     type: Date
+ *       500:
+ *         description: Some server error
+ */
 crtTask.getById = async (
   req: ValidatedRequest<TaskRequestSchema>,
   res: Response
@@ -61,6 +173,44 @@ crtTask.getById = async (
   }
 };
 
+/**
+ * @swagger
+ * /tasks/user/{id}:
+ *   get:
+ *     summary: Get the task by user id
+ *     tags: [Tasks]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The user id
+ *     responses:
+ *       200:
+ *         description: The task description by user id
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                  id:
+ *                     type: number
+ *                  title:
+ *                     type: string
+ *                  description:
+ *                     type: string
+ *                  status:
+ *                     type: string
+ *                  userId:
+ *                     type: integer
+ *                  createdAt:
+ *                     type: Date
+ *                  updatedAt:
+ *                     type: Date
+ *       500:
+ *         description: Some server error
+ */
 crtTask.getByUserId = async (
   req: ValidatedRequest<TaskRequestSchema>,
   res: Response
@@ -85,6 +235,45 @@ crtTask.getByUserId = async (
   }
 };
 
+/**
+ * @swagger
+ * /tasks/{id}:
+ *   put:
+ *     summary: Update the task by the id
+ *     tags: [Tasks]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The task id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *            type: object
+ *            properties:
+ *              title:
+ *                type: string
+ *              description:
+ *                type: string
+ *              status:
+ *                type: string
+ *     responses:
+ *       200:
+ *         description: The task was updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                  message:
+ *                     type: string
+ *       500:
+ *         description: Some server error
+ */
 crtTask.update = async (
   req: ValidatedRequest<TaskRequestSchema>,
   res: Response
@@ -103,6 +292,32 @@ crtTask.update = async (
   }
 };
 
+/**
+ * @swagger
+ * /tasks/{id}:
+ *   delete:
+ *     summary: Remove the task by id
+ *     tags: [Tasks]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The task id
+ *     responses:
+ *       200:
+ *         description: The task was deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                  message:
+ *                     type: string
+ *       500:
+ *         description: Some server error
+ */
 crtTask.delete = async (
   req: ValidatedRequest<TaskRequestSchema>,
   res: Response

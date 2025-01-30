@@ -9,6 +9,36 @@ import { AuthRequestSchema } from "../middlewares/validations/auth.validation";
 const crtAuth: any = {};
 const saltRounds = 10;
 
+/**
+ * @swagger
+ * /auth/register:
+ *   post:
+ *     tags: [Auth]
+ *     summary: Register a new user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *               password:
+ *                 type: string
+ *                 format: password
+ *     responses:
+ *       201:
+ *         description: User registered successfully
+ *       400:
+ *         description: Email already exists
+ *       500:
+ *         description: Server error
+ */
 crtAuth.register = async (
   req: ValidatedRequest<AuthRequestSchema>,
   res: Response
@@ -41,6 +71,43 @@ crtAuth.register = async (
   }
 };
 
+/**
+ * @swagger
+ * /auth/login:
+ *   post:
+ *     tags: [Auth]
+ *     summary: Login a user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *               password:
+ *                 type: string
+ *                 format: password
+ *     responses:
+ *       200:
+ *         description: User logged in successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *       400:
+ *         description: User or password invalid
+ *       500:
+ *         description: Server error
+ */
 crtAuth.login = async (
   req: ValidatedRequest<AuthRequestSchema>,
   res: Response
