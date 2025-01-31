@@ -24,7 +24,5 @@ module.exports = (sequelize: Sequelize) => {
     }
   );
 
-  User.sync({ logging: false });
-
   return User;
 };

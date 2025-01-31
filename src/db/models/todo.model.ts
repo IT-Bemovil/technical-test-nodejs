@@ -35,8 +35,5 @@ module.exports = (sequelize: Sequelize) => {
       modelName: "todo",
     }
   );
-
-  Todo.sync({ logging: false });
-
   return Todo;
 };

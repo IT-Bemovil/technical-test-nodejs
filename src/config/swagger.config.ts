@@ -1,7 +1,7 @@
 import swaggerJsdoc from "swagger-jsdoc";
 
-const options = {
-  definition: {
+const options: swaggerJsdoc.Options = {
+  swaggerDefinition: {
     openapi: "3.0.0",
     info: {
       title: "Todo API Documentation",
@@ -14,8 +14,22 @@ const options = {
         description: "Development server",
       },
     ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
-  apis: ["./src/controllers/*.ts"],
+  apis: ["./src/controllers/*.ts", "./dist/src/controllers/*.js"],
 };
 
 export const swaggerSpec = swaggerJsdoc(options);
