@@ -18,7 +18,7 @@ const cors = require('cors');
 const http = require('http');
 
 // Importar las rutas de la aplicación
-// const routes = require('./routes/index');
+const routes = require('./routes/index');
 // const checkApiKey = require('./middlewares/checkApiKey');
 // const { checkApiKey } = require('./middlewares/auth.handler');
 
@@ -50,7 +50,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use('/', routes);
+app.use('/', routes);
 
 // Middleware de manejo de errores.
 app.use((err, req, res, next) => {

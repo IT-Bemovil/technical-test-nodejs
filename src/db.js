@@ -29,29 +29,30 @@ console.log(`Conectado a base de datos -> ${DB_DATABASE}`);
 const basename = path.basename(__filename);
 
 // Código comentado para la carga de modelos (descomentar y ajustar según sea necesario)
-// const modelDefiners = [];
-// fs.readdirSync(path.join(__dirname, 'models'))
-//   .filter((file) => file.slice(-3) === '.js')
-//   .forEach((file) => {
-//     const model = require(path.join(__dirname, 'models', file));
-//     modelDefiners.push(model);
-//   });
+const modelDefiners = [];
+fs.readdirSync(path.join(__dirname, 'models'))
+  .filter((file) => file.slice(-3) === '.js')
+  .forEach((file) => {
+    const model = require(path.join(__dirname, 'models', file));
+    modelDefiners.push(model);
+  });
 
-// modelDefiners.forEach((model) => model(sequelize));
+modelDefiners.forEach((model) => model(sequelize));
 
-// const modelNames = Object.keys(sequelize.models);
-// modelNames.forEach((modelName) => {
-//   const capitalizedName = modelName.charAt(0).toUpperCase() + modelName.slice(1);
-//   sequelize.models[capitalizedName] = sequelize.models[modelName];
-//   delete sequelize.models[modelName];
-// });
+const modelNames = Object.keys(sequelize.models);
+modelNames.forEach((modelName) => {
+  const capitalizedName = modelName.charAt(0).toUpperCase() + modelName.slice(1);
+  sequelize.models[capitalizedName] = sequelize.models[modelName];
+  delete sequelize.models[modelName];
+});
 
-// console.log('Modelos cargados en Sequelize:');
-// Object.keys(sequelize.models).forEach(modelName => {
-//   console.log(`- ${modelName}`);
-// });
+console.log('Modelos cargados en Sequelize:');
+Object.keys(sequelize.models).forEach(modelName => {
+  console.log(`- ${modelName}`);
+});
 
 // Exportar la conexión
 module.exports = {
   conn: sequelize,
+  ...sequelize.models
 };
