@@ -19,6 +19,8 @@ const http = require('http');
 
 // Importar las rutas de la aplicación
 const routes = require('./routes/index');
+const verifyToken = require('./middlewares/auth');
+const login = require('./controllers/login');
 // const checkApiKey = require('./middlewares/checkApiKey');
 // const { checkApiKey } = require('./middlewares/auth.handler');
 
@@ -50,7 +52,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/', routes);
+app.use('/auth/login', login);
+app.use('/', verifyToken ,routes);
 
 // Middleware de manejo de errores.
 app.use((err, req, res, next) => {
