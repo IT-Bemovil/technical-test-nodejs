@@ -1,0 +1,31 @@
+{
+  "name": "technical-test-nodejs",
+  "version": "1.0.0",
+  "description": "Esta prueba tiene como objetivo evaluar tus habilidades prácticas en Node.js con Express. Se espera que desarrolles una solución que siga buenas prácticas, incluya validaciones, y demuestre tu experiencia en el manejo de APIs RESTful.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./src/index.js",
+    "start": "node ./src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "boom": "^7.3.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "http": "^0.0.1-security",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7",
+    "pg": "^8.13.3",
+    "sequelize": "^6.37.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
