@@ -13,7 +13,9 @@ const postUserService = async (email, password) => {
     }else{
         const newUser =  await User.create({ email, password });
         await newUser.save();
-        return {newUser};
+        return {
+            "message": "User registered successfully"
+          };
     }
 };
 

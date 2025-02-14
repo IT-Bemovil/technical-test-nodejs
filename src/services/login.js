@@ -33,7 +33,7 @@ const loginService = async (email, password) => {
           //firmo el token
           const token = jwt.sign(payload, secret);
     
-          return { payload, token };
+          return { token };
           
 
 }
