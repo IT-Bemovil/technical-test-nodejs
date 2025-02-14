@@ -7,7 +7,7 @@ const postToDoService = async (title, description, userId) => {
     }
     const toDO = await ToDo.findOne({ where: { title } });
      //consultar en bases si existe usuario con userId
-     const user = await User.findByPk(userId);
+     const user = await User.findOne({ where: { id: userId } });
     if(!user){return 'usuario no existe'}
     if(toDO){
         console.log(user)
